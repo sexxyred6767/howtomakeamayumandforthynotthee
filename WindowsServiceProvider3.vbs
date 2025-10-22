@@ -8,15 +8,16 @@ While i < 9999
     p = 0
     While p < 3
         WshShell.SendKeys "%{F4}"  ' Alt+F4
-        WSript.Sleep 1000
+        WScript.Sleep 1000
         WshShell.SendKeys "%{F4}"  ' Alt+F4
-        WSript.Sleep 1000
+        WScript.Sleep 1000
         WshShell.SendKeys "%{F4}"  ' Alt+F4
-        WSript.Sleep 500
+        WScript.Sleep 500
         p = p + 1
     Wend
     
     WScript.Sleep 15000          ' wait 30000 ms between attempts
     i = i + 1
 Wend
+
 
